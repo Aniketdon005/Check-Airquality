@@ -1,0 +1,132 @@
+<html>
+<head>
+	<title>airquality</title>
+	<style>
+		.a1{
+			border:2.5px solid black;
+			height:auto;
+			width:auto;
+			border-radius:10px;
+			box-shadow:20px 20px 20px darkgrey;
+			margin-top:50px;
+			padding:10px;
+			background-image:url("air1.jpg");
+			background-size:cover;
+			font-weight:bolder;
+		
+		}
+		.a2{
+			box-shadow:10px 10px 10px black;
+		}
+		.a2 input{
+		
+				margin-top:10px;
+				margin-left:50px;
+			
+		}
+		.a3{
+			margin-top:20px;
+			background-color:lightgrey;
+			height:50px;
+			width:400px;
+			border-radius:10px;
+			border:2.5px solid black;
+			display:flex;
+		
+			
+		}
+		.a3 p{
+			margin-left:40px;
+			color:red;
+			
+			
+		}
+		body{
+			background-color:lightgrey;
+		}
+			
+	</style>
+</head>
+<body>
+<center><h1>Check Airquality </h1></center>
+<center><form class="a1" >
+
+	
+	<div class="a2">
+	<label>latitude : </label>
+	<input type='number' id='lat'>
+	<br>
+	<br>
+	<label> longitude : </label>
+	<input type='number' id='lon'>
+	<br>
+	<br>
+	<label> City Name : </label>
+	<input type='text' id='city'>
+	<br>
+	<br>
+	<label> State Name : </label>
+	<input type='text' id='state'>
+	<br>
+	<br>
+	<label> Country Name : </label>
+	<input type='text' id='country'>
+	<br>
+	<br>
+	<label> Zip Code : </label>
+	<input type='text' id='zip'>
+	<br>
+	<br>
+	</div>
+	<div class="a3">
+	<button type='submit' value='submit' id='submit'> check </button>
+	
+	<p> Concentration : <span id='concentration'></span></p>
+	<p> Aqi : <span id='aqi'></span></p>
+	</div>
+	
+</form>
+</center>
+<script>
+
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': 'db0720b473mshcadbbbbc29c0d7ep1fcdeajsne35f6245355c',
+		'X-RapidAPI-Host': 'air-quality-by-api-ninjas.p.rapidapi.com'
+	}
+};
+
+		const airquality = (lat,lon,city,state,country,zip) => {
+			
+			var response = 0
+			var data = 0
+				fetch('https://air-quality-by-api-ninjas.p.rapidapi.com/v1/airquality?lat='+lat+'4&lon='+lon+'&city='+city+'&state='+state+'&country='+country+'&zip='+zip,options)
+						.then( (response) => {
+								console.log(response.status)
+								console.log(response.ok)
+								
+								return response.json()
+						})
+							.then( (data) => {
+							
+								console.log(data)
+							
+							
+								concentration.innerHTML = data.overall_aqi
+								aqi.innerHTML = data.overall_aqi
+								
+								
+							})
+		}
+							submit.addEventListener('click' , (e) => {
+								e.preventDefault()
+								airquality(lat.value,lon.value,city.value,state.value,country.value,zip.value)
+							
+							})
+							
+							airquality(2,4,'phaltan','maharastra','india',415523)
+
+</script>
+</body>
+</html>
